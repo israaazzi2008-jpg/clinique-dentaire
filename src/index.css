@@ -1,0 +1,66 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Outfit", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+  
+  /* Customized premium clinic palette */
+  --color-clinic-50: #f0fdfa;   /* Fresh mint light */
+  --color-clinic-100: #ccfbf1;
+  --color-clinic-200: #99f6e4;
+  --color-clinic-500: #14b8a6;  /* Primary clean Teal/Mint */
+  --color-clinic-600: #0d9488;  /* Accent deep teal */
+  --color-clinic-700: #0f766e;
+  --color-clinic-800: #115e59;
+  --color-clinic-900: #134e4a;
+  
+  --color-warmneutral-50: #fafaf9; /* Cozy stone cream */
+  --color-warmneutral-100: #f5f5f4;
+  --color-warmneutral-200: #e7e5e4;
+  --color-warmneutral-800: #292524;
+  --color-warmneutral-900: #1c1917;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--color-warmneutral-50);
+  color: var(--color-warmneutral-900);
+  overflow-x: hidden;
+}
+
+/* Custom background mesh patterns */
+.bg-mesh-grid {
+  background-size: 40px 40px;
+  background-image: linear-gradient(to right, rgba(20, 184, 166, 0.05) 1px, transparent 1px),
+                    linear-gradient(to bottom, rgba(20, 184, 166, 0.05) 1px, transparent 1px);
+}
+
+.bg-dot-grid {
+  background-size: 24px 24px;
+  background-image: radial-gradient(circle, rgba(20, 184, 166, 0.08) 1.5px, transparent 1.5px);
+}
+
+/* Custom scrollbar for beautiful premium feel */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-warmneutral-100);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-clinic-200);
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-clinic-500);
+}
+
