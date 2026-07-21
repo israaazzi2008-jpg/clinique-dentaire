@@ -1,0 +1,6 @@
+{
+  "name": "Cabinet Dentaire Dr. ....",
+  "description": "Un cabinet dentaire moderne et chaleureux offrant des soins d'excellence, des technologies de pointe et une approche humaine et douce à chaque patient.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
