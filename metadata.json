@@ -1,0 +1,6 @@
+{
+  "name": "Abir Smile Clinic Dentaire",
+  "description": "Cabinet dentaire Abir Smile - Dr. Sagesse & Dr. Ghouti Mohamed Cherif. Radio numérique RVG, détartrage, extractions, chirurgies, prothèses, blanchiment, ODF, ATM, botox et filler.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
