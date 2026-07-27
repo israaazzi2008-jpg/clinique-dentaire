@@ -65,28 +65,28 @@ export default function Contact() {
           {/* Phone Contact Card */}
           <a
             href={`tel:${CLINIC_INFO.phone}`}
-            className="flex gap-4 p-5 rounded-2xl bg-white border-2 border-ruby-500/80 hover:border-sky-500 transition-all group shadow-[0_10px_30px_rgba(56,189,248,0.3),0_10px_30px_rgba(225,29,72,0.25)] hover:shadow-[0_15px_40px_rgba(56,189,248,0.4),0_15px_40px_rgba(225,29,72,0.35)] text-left relative z-10"
+            className="flex items-center gap-4 p-5 rounded-2xl bg-white border-2 border-ruby-500/80 hover:border-sky-500 transition-all group shadow-[0_10px_30px_rgba(56,189,248,0.3),0_10px_30px_rgba(225,29,72,0.25)] hover:shadow-[0_15px_40px_rgba(56,189,248,0.4),0_15px_40px_rgba(225,29,72,0.35)] text-left relative z-10"
           >
             <div className="w-12 h-12 rounded-xl bg-gradient-to-tr from-clinic-500 from-40% to-ruby-500 to-60% text-white flex items-center justify-center flex-shrink-0 shadow-md group-hover:scale-105 transition-transform">
               <Phone className="w-5 h-5" />
             </div>
-            <div>
+            <div className="min-w-0 flex-1">
               <h4 className="text-xs font-bold text-slate-500 uppercase tracking-wide">Téléphone</h4>
-              <p className="text-base font-extrabold text-slate-800 mt-0.5 group-hover:underline">{CLINIC_INFO.formattedPhone}</p>
+              <p className="text-base font-extrabold text-slate-800 mt-0.5 group-hover:underline break-words">{CLINIC_INFO.formattedPhone}</p>
             </div>
           </a>
 
           {/* Email Contact Card */}
           <a
             href={`mailto:${CLINIC_INFO.email}`}
-            className="flex gap-4 p-5 rounded-2xl bg-white border-2 border-sky-500/80 hover:border-ruby-500 transition-all group shadow-[0_10px_30px_rgba(56,189,248,0.3),0_10px_30px_rgba(225,29,72,0.25)] hover:shadow-[0_15px_40px_rgba(56,189,248,0.4),0_15px_40px_rgba(225,29,72,0.35)] text-left relative z-10"
+            className="flex items-center gap-4 p-5 rounded-2xl bg-white border-2 border-sky-500/80 hover:border-ruby-500 transition-all group shadow-[0_10px_30px_rgba(56,189,248,0.3),0_10px_30px_rgba(225,29,72,0.25)] hover:shadow-[0_15px_40px_rgba(56,189,248,0.4),0_15px_40px_rgba(225,29,72,0.35)] text-left relative z-10"
           >
             <div className="w-12 h-12 rounded-xl bg-gradient-to-tr from-clinic-500 from-40% to-ruby-500 to-60% text-white flex items-center justify-center flex-shrink-0 shadow-md group-hover:scale-105 transition-transform">
               <Mail className="w-5 h-5" />
             </div>
-            <div>
+            <div className="min-w-0 flex-1">
               <h4 className="text-xs font-bold text-slate-500 uppercase tracking-wide">E-mail</h4>
-              <p className="text-base font-extrabold text-slate-800 mt-0.5 group-hover:underline">{CLINIC_INFO.email}</p>
+              <p className="text-base font-extrabold text-slate-800 mt-0.5 group-hover:underline break-all">{CLINIC_INFO.email}</p>
             </div>
           </a>
 
@@ -95,14 +95,14 @@ export default function Contact() {
             href={CLINIC_INFO.facebookUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex gap-4 p-5 rounded-2xl bg-white border-2 border-ruby-500/80 hover:border-sky-500 transition-all group shadow-[0_10px_30px_rgba(56,189,248,0.3),0_10px_30px_rgba(225,29,72,0.25)] hover:shadow-[0_15px_40px_rgba(56,189,248,0.4),0_15px_40px_rgba(225,29,72,0.35)] text-left relative z-10"
+            className="flex items-center gap-4 p-5 rounded-2xl bg-white border-2 border-ruby-500/80 hover:border-sky-500 transition-all group shadow-[0_10px_30px_rgba(56,189,248,0.3),0_10px_30px_rgba(225,29,72,0.25)] hover:shadow-[0_15px_40px_rgba(56,189,248,0.4),0_15px_40px_rgba(225,29,72,0.35)] text-left relative z-10"
           >
             <div className="w-12 h-12 rounded-xl bg-gradient-to-tr from-clinic-500 from-40% to-ruby-500 to-60% text-white flex items-center justify-center flex-shrink-0 shadow-md group-hover:scale-105 transition-transform">
               <Facebook className="w-5 h-5" />
             </div>
-            <div>
+            <div className="min-w-0 flex-1">
               <h4 className="text-xs font-bold text-slate-500 uppercase tracking-wide">Facebook</h4>
-              <p className="text-base font-extrabold text-slate-800 mt-0.5 group-hover:underline">Abir Smile Clinic Dentaire</p>
+              <p className="text-base font-extrabold text-slate-800 mt-0.5 group-hover:underline truncate sm:whitespace-normal">Abir Smile Clinic Dentaire</p>
             </div>
           </a>
 
@@ -120,3 +120,4 @@ export default function Contact() {
     </div>
   );
 }
+
