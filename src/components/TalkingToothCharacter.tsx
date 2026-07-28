@@ -37,33 +37,35 @@ export default function TalkingToothCharacter({
   }, []);
 
   return (
-    <div className="flex flex-col md:flex-row items-center justify-center gap-8 md:gap-12 py-6 max-w-4xl mx-auto">
-      {/* 1. Interactive Talking Tooth Character Visual */}
-      <div className="relative flex-shrink-0">
-        {/* Vibrant Red & Blue Dual Light Glow Aura around the character */}
-        <div className="absolute -inset-2 rounded-full bg-gradient-to-r from-sky-400 via-ruby-500 to-sky-400 opacity-60 blur-lg -z-10 shadow-[0_0_30px_rgba(14,165,233,0.8),0_0_30px_rgba(239,68,68,0.8)] animate-pulse" />
+    <div className="w-full space-y-4">
+      {/* 1. Open Talking Tooth Header (No outer box/cadre wrapper) */}
+      <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-6 py-2 px-1 relative z-10">
         
-        <motion.div
-          drag
-          dragSnapToOrigin={false}
-          dragElastic={0.1}
-          dragMomentum={false}
-          whileDrag={{ scale: 1.15, cursor: 'grabbing', zIndex: 30 }}
-          onPointerEnter={() => setIsHovered(true)}
-          onPointerLeave={() => setIsHovered(false)}
-          className="relative w-48 h-48 sm:w-56 sm:h-56 select-none cursor-grab active:cursor-grabbing z-20 touch-none"
-        >
-          <div className="w-full h-full relative">
+        {/* Interactive Tooth Character Visual */}
+        <div className="relative flex-shrink-0">
+          <div className="absolute -inset-3 rounded-full bg-gradient-to-r from-sky-400/50 via-ruby-500/50 to-sky-400/50 opacity-60 blur-xl -z-10 animate-pulse" />
+          
+          <motion.div
+            drag
+            dragSnapToOrigin={false}
+            dragMomentum={true}
+            whileDrag={{ scale: 1.2, cursor: 'grabbing', zIndex: 100 }}
+            onPointerEnter={() => setIsHovered(true)}
+            onPointerLeave={() => setIsHovered(false)}
+            className="relative w-28 h-28 sm:w-36 sm:h-36 select-none cursor-grab active:cursor-grabbing z-20 touch-none"
+          >
             <motion.div
+              whileHover={{ scale: 1.08 }}
               animate={{
-                y: isHovered ? [0, -15, 0] : [0, -8, 0],
-                rotate: isHovered ? [-2, 2, -2] : [-1, 1, -1]
+                y: isHovered ? [0, -10, 0] : [0, -6, 0],
+                rotate: isHovered ? [-3, 3, -3] : [-1.5, 1.5, -1.5]
               }}
               transition={{
                 y: { duration: 3.5, repeat: Infinity, ease: 'easeInOut' },
-                rotate: { duration: 4.5, repeat: Infinity, ease: 'easeInOut' }
+                rotate: { duration: 4.5, repeat: Infinity, ease: 'easeInOut' },
+                scale: { type: "spring", stiffness: 300, damping: 20 }
               }}
-              className="relative z-10 w-full h-full"
+              className="w-full h-full"
             >
               <ToothVisual
                 expression={expression}
@@ -72,68 +74,49 @@ export default function TalkingToothCharacter({
                 isBlinking={isBlinking}
                 isHovered={isHovered}
                 animateMouth={true}
-                className="w-full h-full"
+                className="w-full h-full filter drop-shadow-md"
               />
             </motion.div>
-          </div>
-        </motion.div>
+          </motion.div>
 
-        {/* Small Talk Indicator Overlay Badge */}
-        <div className="absolute bottom-1 left-1/2 -translate-x-1/2 bg-clinic-600 text-white font-mono text-[9px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider shadow-[0_1px_2px_rgba(0,0,0,0.04)] animate-pulse">
-          ● Parle
+          <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 bg-clinic-600 text-white font-mono text-[9px] font-extrabold px-2.5 py-0.5 rounded-full uppercase tracking-wider shadow-xs whitespace-nowrap pointer-events-none">
+            ● Parle
+          </div>
         </div>
-      </div>
 
-      {/* 2. Elegant, Comic-Style Speech Bubble (Displays Content Simplistically) */}
-      <div className="flex-grow w-full text-left">
-        <motion.div
-          initial={{ opacity: 0, scale: 0.95, x: 20 }}
-          animate={{ opacity: 1, scale: 1, x: 0 }}
-          className="bg-white rounded-3xl p-6 sm:p-8 border-2 border-sky-500/80 hover:border-ruby-500 shadow-[0_4px_24px_rgba(56,189,248,0.25),0_4px_24px_rgba(225,29,72,0.25)] relative"
-        >
-          {/* Arrow pointing at the tooth */}
-          <div className="absolute top-1/2 -left-[10px] -translate-y-1/2 w-4 h-4 bg-gradient-to-br from-white via-sky-50/20 to-ruby-50/20 border-l-2 border-b-2 border-clinic-100 rotate-45 hidden md:block" />
-          <div className="absolute -top-[10px] left-1/2 -translate-x-1/2 w-4 h-4 bg-gradient-to-br from-white via-sky-50/20 to-ruby-50/20 border-t-2 border-l-2 border-clinic-100 rotate-45 md:hidden" />
-
-          {/* Name & Role Header */}
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1.5 border-b border-warmneutral-100 pb-3.5 mb-4">
-            <div>
-              <h3 className="font-display font-extrabold text-xl text-warmneutral-900 flex items-center gap-2">
-                <span>{name}</span>
-                <span className={`text-[10px] font-mono font-bold px-2 py-0.5 rounded-full uppercase tracking-widest text-white bg-gradient-to-r ${color}`}>
-                  {role}
-                </span>
+        {/* Speech Bubble / Message Content (Clean, borderless floating layout) */}
+        <div className="flex-grow text-center sm:text-left min-w-0">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-2">
+            <div className="flex items-center justify-center sm:justify-start gap-2.5">
+              <h3 className="font-display font-extrabold text-lg sm:text-xl text-slate-900 tracking-tight">
+                {name}
               </h3>
+              <span className={`text-[10px] font-mono font-extrabold px-3 py-0.5 rounded-full uppercase tracking-wider text-white bg-gradient-to-r ${color} shadow-2xs`}>
+                {role}
+              </span>
             </div>
-            
-            {/* Visual Equalizer / Soundwave to indicate speaking */}
-            <div className="flex items-center gap-0.5 h-3.5 px-2">
-              <motion.div className="w-0.5 h-3 bg-clinic-500 rounded-full" animate={{ scaleY: [1, 2.5, 0.8, 2.2, 1] }} transition={{ duration: 0.5, repeat: Infinity }} />
-              <motion.div className="w-0.5 h-2 bg-clinic-500 rounded-full" animate={{ scaleY: [1, 1.8, 0.5, 2.5, 1] }} transition={{ duration: 0.4, repeat: Infinity, delay: 0.1 }} />
-              <motion.div className="w-0.5 h-4 bg-clinic-500 rounded-full" animate={{ scaleY: [1, 2.2, 0.8, 1.8, 1] }} transition={{ duration: 0.6, repeat: Infinity, delay: 0.2 }} />
-              <motion.div className="w-0.5 h-1 bg-clinic-500 rounded-full" animate={{ scaleY: [1, 3.0, 0.4, 2.0, 1] }} transition={{ duration: 0.3, repeat: Infinity, delay: 0.15 }} />
+
+            {/* Soundwave animation */}
+            <div className="hidden sm:flex items-center gap-1 h-3.5 px-2">
+              <motion.div className="w-0.5 h-3 bg-clinic-500 rounded-full" animate={{ scaleY: [1, 2.2, 0.8, 2, 1] }} transition={{ duration: 0.5, repeat: Infinity }} />
+              <motion.div className="w-0.5 h-2 bg-clinic-500 rounded-full" animate={{ scaleY: [1, 1.8, 0.5, 2.2, 1] }} transition={{ duration: 0.4, repeat: Infinity, delay: 0.1 }} />
+              <motion.div className="w-0.5 h-3.5 bg-ruby-500 rounded-full" animate={{ scaleY: [1, 2, 0.8, 1.8, 1] }} transition={{ duration: 0.6, repeat: Infinity, delay: 0.2 }} />
             </div>
           </div>
 
-          {/* Main "Spoken" simplistic content bubble */}
-          <p className="text-base font-semibold text-warmneutral-900 leading-relaxed italic mb-5">
+          <p className="text-sm sm:text-base font-extrabold text-slate-800 italic leading-relaxed">
             "{text}"
           </p>
+        </div>
 
-          {/* Interactive or detailed micro-content (renders simple lists or form components without heavy text) */}
-          {interactiveContent && (
-            <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
-              className="bg-warmneutral-50 rounded-2xl p-4 sm:p-5 border border-warmneutral-100"
-            >
-              {interactiveContent}
-            </motion.div>
-          )}
-
-        </motion.div>
       </div>
+
+      {/* 2. Full-Width Interactive Section Content */}
+      {interactiveContent && (
+        <div className="w-full">
+          {interactiveContent}
+        </div>
+      )}
     </div>
   );
 }
