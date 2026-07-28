@@ -45,7 +45,7 @@ export default function Services() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5"
         >
           {DENTAL_SERVICES.map((service: DentalService) => {
             const isUrgency = service.urgencyLevel === 'Urgence';
@@ -56,45 +56,28 @@ export default function Services() {
                 key={service.id}
                 variants={cardVariants}
                 whileHover={{
-                  y: -10,
-                  scale: 1.02,
-                  boxShadow: '0 25px 30px -5px rgba(56, 189, 248, 0.25), 0 12px 14px -5px rgba(225, 29, 72, 0.2)',
+                  y: -6,
+                  boxShadow: '0 16px 25px -5px rgba(56, 189, 248, 0.2), 0 8px 10px -5px rgba(225, 29, 72, 0.15)',
                 }}
-                className="h-full bg-white rounded-3xl p-6 sm:p-7 border-2 border-sky-500/80 hover:border-ruby-500 shadow-[0_4px_24px_rgba(56,189,248,0.25),0_4px_24px_rgba(225,29,72,0.25)] flex flex-col justify-between transition-all duration-300 relative overflow-hidden group"
+                className="h-full bg-white rounded-2xl p-4 sm:p-5 border-2 border-sky-400/60 hover:border-ruby-500/80 shadow-xs flex flex-col justify-between transition-all duration-300 relative overflow-hidden group"
               >
                 {/* Background Tooth watermark */}
-                <div className="absolute -bottom-6 -right-6 w-24 h-24 text-clinic-100/20 group-hover:text-clinic-200/30 group-hover:scale-125 transition-all duration-500 pointer-events-none">
+                <div className="absolute -bottom-5 -right-5 w-20 h-20 text-clinic-100/30 group-hover:text-clinic-200/40 group-hover:scale-110 transition-all duration-500 pointer-events-none">
                   <ToothSVG className="w-full h-full fill-current" />
                 </div>
 
-                {/* Animated Flying/Floating Tooth on Hover */}
-                <motion.div
-                  animate={{
-                    y: [0, -6, 0],
-                    rotate: [0, 8, -8, 0],
-                  }}
-                  transition={{
-                    duration: 3,
-                    repeat: Infinity,
-                    ease: "easeInOut"
-                  }}
-                  className="absolute top-6 right-6 text-clinic-400 opacity-20 group-hover:opacity-100 group-hover:scale-110 group-hover:text-clinic-500 transition-all duration-300 w-7 h-7"
-                >
-                  <ToothSVG className="w-full h-full fill-current" />
-                </motion.div>
-
                 {/* Glow bar at top of card on hover */}
-                <div className="absolute top-0 left-8 right-8 h-[3px] bg-gradient-to-r from-clinic-400 via-sky-400 to-ruby-500 rounded-b-full scale-x-0 group-hover:scale-x-100 transition-transform duration-300" />
+                <div className="absolute top-0 left-6 right-6 h-[3px] bg-gradient-to-r from-clinic-500 via-sky-400 to-ruby-500 rounded-b-full scale-x-0 group-hover:scale-x-100 transition-transform duration-300" />
 
                 <div className="flex flex-col flex-grow">
                   {/* Card Header (Icon & Urgency Label) */}
-                  <div className="flex items-center justify-between gap-2 mb-4">
-                    <div className="p-3 bg-clinic-50 rounded-2xl text-clinic-600 shadow-sm border border-clinic-100 group-hover:bg-clinic-500 group-hover:text-white transition-all duration-300 flex-shrink-0">
-                      <ServiceIcon name={service.iconName} className="w-6 h-6" />
+                  <div className="flex items-center justify-between gap-2 mb-3">
+                    <div className="p-2.5 bg-gradient-to-br from-clinic-50 to-ruby-50 rounded-xl text-clinic-600 shadow-2xs border border-clinic-100/80 group-hover:bg-gradient-to-br group-hover:from-clinic-600 group-hover:to-ruby-600 group-hover:text-white transition-all duration-300 flex-shrink-0">
+                      <ServiceIcon name={service.iconName} className="w-5 h-5" />
                     </div>
 
                     <span
-                      className={`text-[11px] font-mono font-bold px-3 py-1 rounded-full uppercase tracking-wider whitespace-nowrap flex-shrink-0 ${
+                      className={`text-[10px] font-mono font-extrabold px-2.5 py-0.5 rounded-full uppercase tracking-wider whitespace-nowrap flex-shrink-0 ${
                         isUrgency
                           ? 'bg-rose-100 text-rose-800 border border-rose-200'
                           : isPrioritaire
@@ -107,22 +90,20 @@ export default function Services() {
                   </div>
 
                   {/* Service Title */}
-                  <h3 className="font-display font-extrabold text-xl text-slate-900 group-hover:text-clinic-600 transition-colors mb-2 text-left leading-snug">
+                  <h3 className="font-display font-extrabold text-base sm:text-lg text-slate-900 group-hover:text-clinic-600 transition-colors mb-1.5 text-left leading-snug">
                     {service.title}
                   </h3>
 
-                  {/* Description - standard block for flawless text wrapping */}
-                  <div className="mb-4 min-h-[4rem] flex items-start">
-                    <p className="text-sm text-slate-700 leading-relaxed text-left font-medium">
-                      {service.description}
-                    </p>
-                  </div>
+                  {/* Description */}
+                  <p className="text-xs text-slate-600 leading-relaxed text-left font-medium mb-3 min-h-[2.5rem]">
+                    {service.description}
+                  </p>
 
                   {/* Benefits bullets list */}
-                  <ul className="space-y-2.5 mb-6 border-t border-clinic-100/60 pt-4 text-left flex-grow">
+                  <ul className="space-y-1.5 mb-4 border-t border-slate-100 pt-3 text-left flex-grow">
                     {service.benefits.map((benefit, i) => (
-                      <li key={i} className="flex items-start gap-2.5 text-xs text-slate-800 font-medium leading-relaxed">
-                        <Icons.Check className="w-4 h-4 text-clinic-500 flex-shrink-0 mt-0.5" />
+                      <li key={i} className="flex items-start gap-2 text-xs text-slate-800 font-medium leading-normal">
+                        <Icons.Check className="w-3.5 h-3.5 text-clinic-500 flex-shrink-0 mt-0.5" />
                         <span className="break-words">{benefit}</span>
                       </li>
                     ))}
@@ -130,13 +111,13 @@ export default function Services() {
                 </div>
 
                 {/* Footer of Card */}
-                <div className="flex items-center justify-between border-t border-clinic-100/60 pt-4 mt-auto">
-                  <span className="text-[11px] font-mono font-semibold text-slate-700 flex items-center gap-1.5">
+                <div className="flex items-center justify-between border-t border-slate-100 pt-3 mt-auto">
+                  <span className="text-[11px] font-mono font-bold text-slate-600 flex items-center gap-1.5">
                     <Icons.Clock className="w-3.5 h-3.5 text-clinic-500" />
                     {service.duration}
                   </span>
                   
-                  <span className="text-xs font-bold text-clinic-600 group-hover:text-clinic-700 flex items-center gap-1 transition-colors">
+                  <span className="text-xs font-extrabold text-clinic-600 group-hover:text-ruby-600 flex items-center gap-1 transition-colors">
                     S'informer <Icons.ChevronRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
                   </span>
                 </div>
