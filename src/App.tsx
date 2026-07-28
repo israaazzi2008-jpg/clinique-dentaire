@@ -179,8 +179,8 @@ export default function App() {
         {/* 6. The Dental Navigation Arch */}
         <DentalNavigationArch activeTab={activeTab} onChangeTab={handleTabChange} />
 
-        {/* 7. Active Interactive Section */}
-        <div className="w-full max-w-5xl bg-white rounded-3xl p-3 sm:p-6 border-2 border-slate-200/90 shadow-[0_8px_30px_rgba(0,0,0,0.08)] relative z-10 overflow-hidden">
+        {/* 7. Active Interactive Section (No frame or cadre box) */}
+        <div className="w-full max-w-6xl relative z-10 px-2 sm:px-4">
           <AnimatePresence mode="wait">
             <motion.div
               key={activeTab}
@@ -188,7 +188,7 @@ export default function App() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.15, ease: 'linear' }}
-              className="w-full bg-white rounded-2xl"
+              className="w-full"
             >
               {activeTab === 'accueil' && (
                 <TalkingToothCharacter
@@ -377,17 +377,24 @@ export default function App() {
           {/* Contact Details Column */}
           <div className="md:col-span-3 flex flex-col items-start">
             <h4 className="text-xs font-mono font-bold text-white uppercase tracking-wider mb-4">Nous Joindre</h4>
-            <ul className="space-y-3.5 text-xs text-slate-300 font-medium w-full">
-              
-
+            <ul className="space-y-3 text-xs text-slate-300 font-medium w-full">
+              <li>
+                <a
+                  href={`tel:${CLINIC_INFO.phone}`}
+                  className="flex items-center gap-2 text-ruby-400 hover:text-ruby-300 font-extrabold transition-colors"
+                >
+                  <Phone className="w-4 h-4 text-ruby-500 shrink-0" />
+                  <span>{CLINIC_INFO.formattedPhone}</span>
+                </a>
+              </li>
 
               <li>
                 <a
                   href={`mailto:${CLINIC_INFO.email}`}
                   className="flex items-center gap-2 text-slate-300 hover:text-white transition-colors"
                 >
-                  <Mail className="w-4 h-4 text-clinic-500" />
-                  <span>{CLINIC_INFO.email}</span>
+                  <Mail className="w-4 h-4 text-clinic-500 shrink-0" />
+                  <span className="truncate">{CLINIC_INFO.email}</span>
                 </a>
               </li>
 
