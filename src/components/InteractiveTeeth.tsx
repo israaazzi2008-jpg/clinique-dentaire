@@ -40,7 +40,7 @@ export default function InteractiveTeeth() {
         <div className="max-w-5xl mx-auto mb-10 relative py-4">
           
           {/* Interactive Row */}
-          <div className="flex flex-wrap items-end justify-center gap-4 sm:gap-8 md:gap-12 py-12 relative">
+          <div className="grid grid-cols-6 gap-y-6 gap-x-1 sm:flex sm:flex-wrap items-end justify-center sm:gap-8 md:gap-12 py-6 sm:py-12 relative">
             {/* Horizontal connecting arch line with motion pulse */}
             <div className="absolute top-1/2 left-[10%] right-[10%] h-[2px] bg-gradient-to-r from-transparent via-clinic-200 to-transparent -translate-y-1/2 -z-10 hidden sm:block" />
 
@@ -54,26 +54,29 @@ export default function InteractiveTeeth() {
               const durations = [3.2, 4.0, 3.5, 4.4, 3.8];
               const delay = idx * 0.35;
 
+              // Layout placement for mobile 3-in-top-row, 2-underneath grid
+              const mobileGridClass = idx === 3 
+                ? 'col-start-2 col-span-2 sm:col-start-auto sm:col-span-auto' 
+                : 'col-span-2 sm:col-span-auto';
+
               return (
                 <motion.div
                   key={tooth.id}
                   drag
                   dragSnapToOrigin={false}
-                  dragElastic={0.1}
-                  dragMomentum={false}
-                  whileDrag={{ scale: 1.25, zIndex: 50, cursor: 'grabbing' }}
-                  className="relative flex flex-col items-center cursor-grab active:cursor-grabbing touch-none select-none"
+                  dragMomentum={true}
+                  whileDrag={{ scale: 1.25, zIndex: 100, cursor: 'grabbing' }}
+                  whileHover={{ scale: 1.08 }}
+                  onTap={() => handleToothClick(tooth)}
+                  className={`relative flex flex-col items-center cursor-grab active:cursor-grabbing touch-none select-none ${mobileGridClass}`}
                 >
                   
                   {/* Bobbing Interactive Tooth Button */}
-                  <motion.button
-                    onPointerDown={() => handleToothClick(tooth)}
-                    onPointerEnter={() => setHoveredToothId(tooth.id)}
-                    onPointerLeave={() => setHoveredToothId(null)}
+                  <motion.div
                     animate={{
                       y: isSelected ? -15 : [0, bobOffsets[idx % bobOffsets.length], 0],
-                      scale: isSelected ? 1.2 : isHovered ? 1.1 : 1,
-                      rotate: isSelected ? [0, 8, -8, 0] : isHovered ? [0, -4, 4, 0] : [0, rotateOffsets[idx % rotateOffsets.length], 0],
+                      scale: isSelected ? 1.2 : 1,
+                      rotate: isSelected ? [0, 8, -8, 0] : [0, rotateOffsets[idx % rotateOffsets.length], 0],
                     }}
                     transition={{
                       y: isSelected
@@ -84,11 +87,11 @@ export default function InteractiveTeeth() {
                         ? { duration: 2, repeat: Infinity, ease: "easeInOut" }
                         : { duration: durations[idx % durations.length] * 1.5, repeat: Infinity, delay: delay, ease: "easeInOut" }
                     }}
-                    className="cursor-pointer p-2 outline-none transition-all duration-300 bg-transparent border-0 shadow-none relative"
+                    className="p-2 outline-none bg-transparent border-0 shadow-none relative"
                   >
-                    <div className="w-14 h-14 sm:w-16 sm:h-16 relative">
+                    <div className="w-16 h-16 sm:w-20 sm:h-20 relative">
                       {/* Red and blue light glow aura behind active/hovered small tooth */}
-                      {(isSelected || isHovered) && (
+                      {isSelected && (
                         <div className="absolute -inset-2 rounded-full bg-gradient-to-r from-sky-400 via-ruby-500 to-sky-400 opacity-70 blur-md -z-10 shadow-[0_0_20px_rgba(14,165,233,0.9),0_0_20px_rgba(239,68,68,0.9)] animate-pulse" />
                       )}
                       <div className="relative z-10 w-full h-full">
@@ -96,25 +99,19 @@ export default function InteractiveTeeth() {
                           expression={visualStyle.expression}
                           accessory={visualStyle.accessory}
                           color={visualStyle.color}
-                          isHovered={isHovered || isSelected}
+                          isHovered={isSelected}
                           animateMouth={isSelected}
                           className="w-full h-full"
                         />
                       </div>
                     </div>
-                  </motion.button>
+                  </motion.div>
 
                   {/* Active Indicator label below */}
                   {isSelected && (
-                    <motion.span
-                      layoutId="arch-active-badge"
-                      className="absolute -bottom-7 bg-clinic-600 text-white font-mono text-[9px] font-bold px-2.5 py-0.5 rounded-full shadow-[0_0_15px_rgba(225,29,72,0.8),0_0_15px_rgba(56,189,248,0.8)] animate-pulse border border-clinic-400"
-                      initial={{ opacity: 0, y: 5 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.2 }}
-                    >
+                    <span className="absolute -bottom-7 bg-clinic-600 text-white font-mono text-[9px] font-bold px-2.5 py-0.5 rounded-full shadow-[0_0_15px_rgba(225,29,72,0.8),0_0_15px_rgba(56,189,248,0.8)] animate-pulse border border-clinic-400 whitespace-nowrap">
                       DÉCODÉE
-                    </motion.span>
+                    </span>
                   )}
                 </motion.div>
               );
