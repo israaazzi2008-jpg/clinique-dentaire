@@ -52,7 +52,7 @@ export default function TalkingToothCharacter({
             whileDrag={{ scale: 1.2, cursor: 'grabbing', zIndex: 100 }}
             onPointerEnter={() => setIsHovered(true)}
             onPointerLeave={() => setIsHovered(false)}
-            className="relative w-28 h-28 sm:w-36 sm:h-36 select-none cursor-grab active:cursor-grabbing z-20 touch-none"
+            className="relative w-44 h-44 sm:w-56 sm:h-56 md:w-64 md:h-64 select-none cursor-grab active:cursor-grabbing z-20 touch-none"
           >
             <motion.div
               whileHover={{ scale: 1.08 }}
@@ -120,3 +120,4 @@ export default function TalkingToothCharacter({
     </div>
   );
 }
+
