@@ -73,24 +73,27 @@ export default function DentalNavigationArch({ activeTab, onChangeTab }: DentalN
       <div className="absolute top-[40%] left-[12%] right-[12%] h-[2px] bg-gradient-to-r from-transparent via-clinic-200/40 to-transparent -translate-y-1/2 -z-10 hidden md:block" />
 
       {/* Main Arch Grid */}
-      <div className="flex flex-wrap items-center justify-center gap-6 sm:gap-10 md:gap-14">
-        {navItems.map((item) => {
+      <div className="grid grid-cols-6 gap-y-4 gap-x-1 sm:flex sm:flex-wrap items-center justify-center sm:gap-10 md:gap-14">
+        {navItems.map((item, idx) => {
           const isActive = activeTab === item.id;
           
+          // Layout placement for mobile 3-in-top-row, 2-underneath grid
+          const mobileGridClass = idx === 3 
+            ? 'col-start-2 col-span-2 sm:col-start-auto sm:col-span-auto' 
+            : 'col-span-2 sm:col-span-auto';
+          
           return (
-            <motion.button
+            <motion.div
               key={item.id}
               drag
               dragSnapToOrigin={false}
-              dragElastic={0.1}
-              dragMomentum={false}
-              whileDrag={{ scale: 1.25, zIndex: 50, cursor: 'grabbing' }}
+              dragMomentum={true}
+              whileDrag={{ scale: 1.2, zIndex: 100, cursor: 'grabbing' }}
+              whileHover={{ scale: 1.1 }}
               onTap={() => onChangeTab(item.id)}
               onPointerEnter={() => setHoveredTabId(item.id)}
               onPointerLeave={() => setHoveredTabId(null)}
-              whileHover={{ scale: 1.15 }}
-              whileTap={{ scale: 0.95 }}
-              className={`relative flex flex-col items-center p-2 outline-none transition-transform duration-200 cursor-grab active:cursor-grabbing touch-none select-none ${
+              className={`relative flex flex-col items-center p-1 sm:p-2 outline-none cursor-grab active:cursor-grabbing touch-none select-none ${mobileGridClass} ${
                 isActive
                   ? 'text-clinic-600 font-extrabold'
                   : 'text-warmneutral-800 hover:text-ruby-600'
@@ -98,11 +101,7 @@ export default function DentalNavigationArch({ activeTab, onChangeTab }: DentalN
             >
               {/* Active Aura glow behind item - vivid cyan & red light glow */}
               {isActive && (
-                <motion.div
-                  layoutId="activeNavAura"
-                  className="absolute -inset-1 rounded-full bg-gradient-to-r from-sky-400 via-ruby-500 to-sky-400 opacity-60 blur-md -z-10 shadow-[0_0_20px_rgba(14,165,233,0.8),0_0_20px_rgba(239,68,68,0.8)]"
-                  transition={{ type: 'spring', stiffness: 300, damping: 25 }}
-                />
+                <div className="absolute -inset-1 rounded-full bg-gradient-to-r from-sky-400 via-ruby-500 to-sky-400 opacity-60 blur-md -z-10 shadow-[0_0_20px_rgba(14,165,233,0.8),0_0_20px_rgba(239,68,68,0.8)]" />
               )}
 
               {/* Tooth Number Tag */}
@@ -111,7 +110,7 @@ export default function DentalNavigationArch({ activeTab, onChangeTab }: DentalN
               </div>
 
               {/* Central Expressive Tooth Visual */}
-              <div className="w-14 h-14 sm:w-16 sm:h-16 relative mb-1.5">
+              <div className="w-16 h-16 sm:w-20 sm:h-20 relative mb-1.5">
                 <div className="relative z-10 w-full h-full">
                   <ToothVisual
                     expression={item.expression}
@@ -131,12 +130,9 @@ export default function DentalNavigationArch({ activeTab, onChangeTab }: DentalN
 
               {/* Floating Indicator active tag */}
               {isActive && (
-                <motion.div
-                  layoutId="activeNavDot"
-                  className="absolute -bottom-2.5 w-2 h-2 rounded-full bg-ruby-600 shadow-[0_0_8px_rgba(220,38,38,1)]"
-                />
+                <div className="absolute -bottom-2.5 w-2 h-2 rounded-full bg-ruby-600 shadow-[0_0_8px_rgba(220,38,38,1)]" />
               )}
-            </motion.button>
+            </motion.div>
           );
         })}
       </div>
